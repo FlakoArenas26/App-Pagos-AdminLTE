@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -49,29 +50,33 @@ class UserController extends Controller
     public function edit(User $user)
     {
         // Mostrar formulario para editar un usuario existente
-        return view('users.edit', compact('user'));
+        $roles = Role::all();
+        $userRoles = $user->roles->pluck('id')->toArray();
+        return view('users.edit', compact('user', 'roles', 'userRoles'));
     }
 
     public function update(Request $request, User $user)
     {
-        // Validar y actualizar la información del usuario en la base de datos
-        // (Aquí deberías agregar lógica de validación según tus necesidades)
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        // Si se proporciona una nueva contraseña, actualízala
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
 
-        // Actualiza el resto de los campos
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
         ]);
+
+        if ($request->has('roles')) {
+            $user->roles()->sync($request->input('roles'));
+        } else {
+            $user->roles()->detach(); // Si no se selecciona ningún rol, eliminar los roles existentes.
+        }
 
         return redirect()->route('users.index')->with('success', 'Usuario actualizado exitosamente.');
     }

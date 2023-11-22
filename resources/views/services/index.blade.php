@@ -8,7 +8,13 @@
                 {{-- <a href="{{ route('users.create') }}" class="btn btn-primary">Crear Nuevo Servicio</a> --}}
 
                 <div class=" my-3">
-                    <a href="{{ route('services.create') }}" class="btn btn-success">Nuevo Servicio</a>
+                    {{-- /* El código `@can('services.create')` es una directiva de Laravel Blade que verifica si el usuario
+                        actualmente autenticado tiene permiso para crear un nuevo servicio. Si el usuario tiene el permiso,
+                        mostrará el botón "Nuevo Servicio", que es un enlace a la ruta `services.create`. Si el usuario no
+                        tiene el permiso, el botón no se mostrará. */ --}}
+                    @can('services.create')
+                        <a href="{{ route('services.create') }}" class="btn btn-success">Nuevo Servicio</a>
+                    @endcan
                 </div>
                 <div class=" my-3 text-md-end">
                     <a href="{{ route('home') }}" class="btn btn-primary">Inicio</a>

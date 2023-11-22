@@ -28,11 +28,20 @@
                             placeholder="Confirmar contraseña">
                     </div>
 
+                    <h2 class="text-center my-3 py-2">Listado de Roles</h2>
+                    @foreach ($roles as $role)
+                        <div>
+                            <label for="role_{{ $role->id }}">
+                                <input type="checkbox" name="roles[]" id="role_{{ $role->id }}"
+                                    value="{{ $role->id }}" {{ in_array($role->id, $userRoles) ? 'checked' : '' }}>
+                                {{ $role->name }}
+                            </label>
+                        </div>
+                    @endforeach
+
                     <div class="row">
                         <div class="col-12 text-center">
-                            <!-- Quitamos el div innecesario -->
-                            <button type="submit" class="btn btn-warning btn-lg">Actualizar Usuario</button>
-                            <!-- El botón debe estar centrado ahora -->
+                            <button type="submit" class="btn btn-warning btn-lg">Actualizar</button>
                         </div>
                     </div>
                 </form>

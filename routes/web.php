@@ -38,9 +38,6 @@ Route::get('/services/{service}/edit', [ServiceController::class, 'edit'])->name
 Route::put('/services/{service}', [ServiceController::class, 'update'])->name('services.update');
 Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
-// Route::get('/roles/index', [RoleController::class, 'index'])->name('roles.index');
-// Route::get('/roles/create-rol', [RoleController::class, 'create'])->name('roles.create-rol');
-
 Route::get('/payments/index', [PaymentController::class, 'index'])->name('payments.index');
 Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
 Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
