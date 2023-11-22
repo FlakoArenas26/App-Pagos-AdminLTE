@@ -25,15 +25,26 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/users/index', [UserController::class, 'index'])->name('users.index');
-// Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
 Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 Route::get('/services/index', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
+Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
+Route::get('/services/{service}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+Route::put('/services/{service}', [ServiceController::class, 'update'])->name('services.update');
+Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
 // Route::get('/roles/index', [RoleController::class, 'index'])->name('roles.index');
 // Route::get('/roles/create-rol', [RoleController::class, 'create'])->name('roles.create-rol');
 
 Route::get('/payments/index', [PaymentController::class, 'index'])->name('payments.index');
+Route::get('/payments/create', [PaymentController::class, 'create'])->name('payments.create');
+Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
+Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
+Route::get('/payments/{payment}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
+Route::put('/payments/{payment}', [PaymentController::class, 'update'])->name('payments.update');
+Route::delete('/payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');

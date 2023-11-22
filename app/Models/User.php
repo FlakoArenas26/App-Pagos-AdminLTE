@@ -60,14 +60,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
-
-    // /**
-    //  * Relationship with roles.
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    //  */
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class);
-    // }
 }
