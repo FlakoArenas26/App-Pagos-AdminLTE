@@ -1,50 +1,45 @@
 @extends('layouts.app')
 
-@if (session('success'))
-    <div id="successAlert" class="container mt-3">
-        <div class="alert alert-success col-6 mx-auto text-center alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-        </div>
-    </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('successAlert').style.display = 'none';
-        }, 5000); // Oculta la alerta después de 5 segundos (5000 milisegundos)
-    </script>
-@endif
 
-@if (session('danger'))
-    <div id="dangerAlert" class="container mt-3">
-        <div class="alert alert-danger col-6 mx-auto text-center alert-dismissible fade show" role="alert">
-            {{ session('danger') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-        </div>
-    </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('dangerAlert').style.display = 'none';
-        }, 5000); // Oculta la alerta después de 5 segundos (5000 milisegundos)
-    </script>
-@endif
 
 @section('content')
+    <div class="alert my-3">
+        @if (session('success'))
+            <div id="successAlert" class="container mt-3">
+                <div class="alert alert-success col-6 mx-auto text-center alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('successAlert').style.display = 'none';
+                }, 5000); // Oculta la alerta después de 5 segundos (5000 milisegundos)
+            </script>
+        @endif
+
+        @if (session('danger'))
+            <div id="dangerAlert" class="container mt-3">
+                <div class="alert alert-danger col-6 mx-auto text-center alert-dismissible fade show" role="alert">
+                    {{ session('danger') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('dangerAlert').style.display = 'none';
+                }, 5000); // Oculta la alerta después de 5 segundos (5000 milisegundos)
+            </script>
+        @endif
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="text-center">Lista de Servicios</h1>
-                {{-- <a href="{{ route('users.create') }}" class="btn btn-primary">Crear Nuevo Servicio</a> --}}
 
-                <div class=" my-3">
-                    {{-- /* El código `@can('services.create')` es una directiva de Laravel Blade que verifica si el usuario
-                        actualmente autenticado tiene permiso para crear un nuevo servicio. Si el usuario tiene el permiso,
-                        mostrará el botón "Nuevo Servicio", que es un enlace a la ruta `services.create`. Si el usuario no
-                        tiene el permiso, el botón no se mostrará. */ --}}
-                    @can('services.create')
-                        <a href="{{ route('services.create') }}" class="btn btn-success">Nuevo Servicio</a>
-                    @endcan
-                </div>
-                <div class=" my-3 text-md-end">
+                <div class="d-flex justify-content-between my-3">
+                    <a href="{{ route('services.create') }}" class="btn btn-success">Nuevo Servicio</a>
+
                     <a href="{{ route('home') }}" class="btn btn-primary">Inicio</a>
                 </div>
 
@@ -74,7 +69,6 @@
                             </div>
                         </div>
                     @endforeach
-
                 </div>
             </div>
         </div>

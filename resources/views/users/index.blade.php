@@ -1,21 +1,24 @@
 @extends('layouts.app')
 
-@if (session('danger'))
-    <div id="dangerAlert" class="container mt-3">
-        <div class="alert alert-danger col-6 mx-auto text-center alert-dismissible fade show" role="alert">
-            {{ session('danger') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-        </div>
-    </div>
-    <script>
-        setTimeout(function() {
-            document.getElementById('dangerAlert').style.display = 'none';
-        }, 5000); // Oculta la alerta después de 5 segundos (5000 milisegundos)
-    </script>
-@endif
+
 
 
 @section('content')
+    <div class="alert my-3">
+        @if (session('danger'))
+            <div id="dangerAlert" class="container mt-3">
+                <div class="alert alert-danger col-6 mx-auto text-center alert-dismissible fade show" role="alert">
+                    {{ session('danger') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                </div>
+            </div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('dangerAlert').style.display = 'none';
+                }, 5000); // Oculta la alerta después de 5 segundos (5000 milisegundos)
+            </script>
+        @endif
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-12">

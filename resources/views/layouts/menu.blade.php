@@ -17,10 +17,13 @@ actualmente autenticado tiene la capacidad de acceder a la ruta `users.index`. *
 
 </li>
 <li class="nav-item">
-    <a href="{{ route('services.index') }}" class="nav-link">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <p>Servicios</p>
-    </a>
+
+    @can('services.index')
+        <a href="{{ route('services.index') }}" class="nav-link">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <p>Servicios</p>
+        </a>
+    @endcan
 </li>
 <li class="nav-item">
     <a href="{{ route('payments.index') }}" class="nav-link">

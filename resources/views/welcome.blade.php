@@ -67,12 +67,8 @@
             <div class="container mx-auto px-4">
                 <div class="mb-8">
                     <h3 class="text-3xl font-semibold mb-4">¡Bienvenido a nuestra plataforma de pagos!</h3>
-                    <p class="text-center mb-4">Gestiona usuarios, roles y servicios, realiza pagos seguros y rápidos.
-                    </p>
-                    <p class="text-center mb-8">Inicia sesión si ya tienes una cuenta o regístrate para disfrutar de
-                        todas
-                        las
-                        ventajas.</p>
+                    <p class="text-center mb-8">Inicia sesión si ya tienes una cuenta o regístrate para que empieces a
+                        realizar tus pagos de forma sencilla.</p>
                 </div>
 
                 <div class="flex justify-center">

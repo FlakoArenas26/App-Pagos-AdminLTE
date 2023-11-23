@@ -22,7 +22,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'users.destroy'])->assignRole($role1);
         // Permission::create(['name' => 'users.index']);
 
-        Permission::create(['name' => 'services.index'])->syncRoles([$role1, $role2]);
+        Permission::create(['name' => 'services.index'])->assignRole($role1);
         Permission::create(['name' => 'services.create'])->assignRole($role1);
         Permission::create(['name' => 'services.edit'])->assignRole($role1);
         Permission::create(['name' => 'services.update'])->assignRole($role1);

@@ -22,14 +22,14 @@
                             <li class="user-header bg-primary">
                                 <p>
                                     {{ Auth::user()->name }}
-                                    <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
+                                    <small>Registrado desde {{ Auth::user()->created_at->format('M. Y') }}</small>
                                 </p>
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat float-right"
+                                <a href="#" class="btn btn-secondary float-right"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Sign out
+                                    Cerrar sesión
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
