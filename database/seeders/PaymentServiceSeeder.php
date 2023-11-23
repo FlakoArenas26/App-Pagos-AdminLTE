@@ -28,7 +28,7 @@ class PaymentServiceSeeder extends Seeder
             PaymentService::create([
                 'payment_id' => 2,
                 'service_id' => $serviceId,
-                'amount' => 121500,
+                'amount' => 226500,
             ]);
         }
 
@@ -38,7 +38,7 @@ class PaymentServiceSeeder extends Seeder
             PaymentService::create([
                 'payment_id' => 3,
                 'service_id' => $serviceId,
-                'amount' => 121500,
+                'amount' => 489500,
             ]);
         }
 
@@ -48,7 +48,7 @@ class PaymentServiceSeeder extends Seeder
             PaymentService::create([
                 'payment_id' => 4,
                 'service_id' => $serviceId,
-                'amount' => 121500,
+                'amount' => 473000,
             ]);
         }
 
@@ -58,7 +58,7 @@ class PaymentServiceSeeder extends Seeder
             PaymentService::create([
                 'payment_id' => 5,
                 'service_id' => $serviceId,
-                'amount' => 121500,
+                'amount' => 594500,
             ]);
         }
 

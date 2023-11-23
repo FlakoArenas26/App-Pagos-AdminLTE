@@ -55,38 +55,39 @@
             </thead>
             <tbody>
                 @foreach ($payments as $payment)
-                    <tr>
-                        <td class="text-center">{{ $payment->id }}</td>
-                        <td class="text-center">{{ $payment->user->name }}</td>
-                        <td class="text-center">
-                            @foreach ($payment->services as $service)
-                                {{ $service->name }}
-                                @if (!$loop->last)
-                                    <br>
-                                @endif
-                            @endforeach
-                        </td>
-                        <td class="text-center">
-                            @foreach ($payment->services as $service)
-                                ${{ number_format($service->amount, 0, ',', '.') }} <!-- Formato de moneda colombiana -->
-                                @if (!$loop->last)
-                                    <br>
-                                @endif
-                            @endforeach
-                            <hr> <!-- Línea divisoria entre los montos de servicios y el monto total del pago -->
-                            <strong>Total Pago:</strong>
-                            ${{ number_format($payment->services->sum('amount'), 0, ',', '.') }}
-                        </td>
-
-
-                        <td class="text-center">{{ $payment->date }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('payments.show', $payment->id) }}" class="btn btn-info">Ver Detalles</a>
-                        </td>
-                    </tr>
+                    @if ($payment->user_id === Auth::id())
+                        <!-- Filtrar pagos por el usuario logueado -->
+                        <tr>
+                            <td class="text-center">{{ $payment->id }}</td>
+                            <td class="text-center">{{ $payment->user->name }}</td>
+                            <td class="text-center">
+                                @foreach ($payment->services as $service)
+                                    {{ $service->name }}
+                                    @if (!$loop->last)
+                                        <br>
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td class="text-center">
+                                @foreach ($payment->services as $service)
+                                    ${{ number_format($service->amount, 0, ',', '.') }} COP
+                                    <!-- Formato de moneda colombiana -->
+                                    @if (!$loop->last)
+                                        <br>
+                                    @endif
+                                @endforeach
+                                <hr> <!-- Línea divisoria entre los montos de servicios y el monto total del pago -->
+                                <strong>Total Pago:</strong>
+                                ${{ number_format($payment->services->sum('amount'), 0, ',', '.') }} COP
+                            </td>
+                            <td class="text-center">{{ $payment->date }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('payments.show', $payment->id) }}" class="btn btn-info">Ver Detalles</a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
-
     </div>
 @endsection

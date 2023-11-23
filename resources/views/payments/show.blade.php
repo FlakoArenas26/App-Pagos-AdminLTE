@@ -3,7 +3,7 @@
 @section('content')
     <div class="container my-5 py-3">
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h1 class="text-center mb-0">Detalles del Pago</h1>
@@ -21,17 +21,24 @@
                                     <td class="text-end">{{ $payment->user->name }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Servicio:</th>
-                                    <td class="text-end">{{ $payment->service->name }}</td>
+                                    <th scope="row">Servicios:</th>
+                                    <td class="text-end">
+                                        @foreach ($payment->services as $service)
+                                            {{ $service->name }} -
+                                            ${{ number_format($service->amount, 0, ',', '.') }} COP<br>
+                                        @endforeach
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Monto:</th>
-                                    <td class="text-end">{{ 'COP ' . number_format($payment->amount, 0, ',', '.') }}</td>
+                                    <th scope="row">Monto Total:</th>
+                                    <td class="text-end">
+                                        ${{ number_format($payment->services->sum('amount'), 0, ',', '.') }} COP</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Fecha:</th>
                                     <td class="text-end">{{ $payment->date }}</td>
                                 </tr>
+
                             </tbody>
                         </table>
                     </div>

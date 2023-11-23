@@ -66,6 +66,9 @@
                 <h5>Servicios Seleccionados:</h5>
                 <ul id="selectedServicesList"></ul>
                 <p><strong>Total: </strong><span id="totalAmount">0</span> COP</p>
+                <!-- Campo oculto para el monto total -->
+                <input type="hidden" name="amount" id="amountField" value="0">
+
             </div>
 
             <button type="submit" class="btn btn-success">Registrar Pago</button>
@@ -105,6 +108,9 @@
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0
                 }).replace(/\sCOP/, '');
+
+                // Actualiza el campo oculto con el monto total
+                document.getElementById('amountField').value = totalAmount;
             });
         });
     </script>

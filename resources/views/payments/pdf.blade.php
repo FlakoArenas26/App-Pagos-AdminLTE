@@ -46,24 +46,31 @@
         <tbody>
             <tr>
                 <th scope="row">ID del Pago:</th>
-                <td>{{ $payment->id }}</td>
+                <td class="text-end">{{ $payment->id }}</td>
             </tr>
             <tr>
                 <th scope="row">Usuario:</th>
-                <td>{{ $payment->user->name }}</td>
+                <td class="text-end">{{ $payment->user->name }}</td>
             </tr>
             <tr>
-                <th scope="row">Servicio:</th>
-                <td>{{ $payment->service->name }}</td>
+                <th scope="row">Servicios:</th>
+                <td class="text-end">
+                    @foreach ($payment->services as $service)
+                        {{ $service->name }} -
+                        ${{ number_format($service->amount, 0, ',', '.') }} COP<br>
+                    @endforeach
+                </td>
             </tr>
             <tr>
-                <th scope="row">Monto:</th>
-                <td>{{ 'COP ' . number_format($payment->amount, 0, ',', '.') }}</td>
+                <th scope="row">Monto Total:</th>
+                <td class="text-end">
+                    ${{ number_format($payment->services->sum('amount'), 0, ',', '.') }} COP</td>
             </tr>
             <tr>
                 <th scope="row">Fecha:</th>
-                <td>{{ $payment->date }}</td>
+                <td class="text-end">{{ $payment->date }}</td>
             </tr>
+
         </tbody>
     </table>
 </body>

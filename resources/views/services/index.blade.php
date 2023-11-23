@@ -51,27 +51,30 @@
                 <div class="row row-cols-1 row-cols-md-4 mx-4">
                     @foreach ($services as $service)
                         <div class="col mb-4">
-                            <div class="card">
+                            <div class="card d-flex justify-content-center align-items-center">
                                 <div class="card-title">
-                                    <h5 class="card-title text-center mt-2">{{ $service->name }}</h5>
+                                    <h5 class="card-title mt-2"><strong>{{ $service->name }}</strong></h5>
                                 </div>
                                 <div class="card-body">
                                     <p class="card-text text-center">Valor:
                                         {{ number_format($service->amount, 0, ',', '.') }} COP</p>
-                                    <div class="text-center">
-                                        <a href="{{ route('services.edit', $service) }}" class="btn btn-warning">Editar</a>
-                                        <form action="{{ route('services.destroy', $service) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('¿Estás seguro de eliminar este servicio?')">Eliminar</button>
-                                        </form>
-                                    </div>
+                                    @can('services.edit')
+                                        <div class="text-center">
+                                            <a href="{{ route('services.edit', $service) }}" class="btn btn-warning">Editar</a>
+                                            <form action="{{ route('services.destroy', $service) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('¿Estás seguro de eliminar este servicio?')">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    @endcan
                                 </div>
                             </div>
                         </div>
                     @endforeach
+
                 </div>
             </div>
         </div>

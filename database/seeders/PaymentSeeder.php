@@ -24,8 +24,8 @@ class PaymentSeeder extends Seeder
 
             Payment::create([
                 'user_id' => $user->id,
-                'service_id' => $service->id,
-                'amount' => 18000,
+                // 'service_id' => $service->id,
+                'amount' => $service->amount,
                 'date' => now(),
             ]);
         }

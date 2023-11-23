@@ -13,7 +13,6 @@ class Payment extends Model
      */
     protected $fillable = [
         'user_id',
-        'service_ids',
         'amount',
         'date',
     ];
