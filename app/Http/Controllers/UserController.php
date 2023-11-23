@@ -28,24 +28,24 @@ class UserController extends Controller
         return view('auth.register');
     }
 
-    // public function store(Request $request)
-    // {
-    //     // Validar y almacenar el nuevo usuario en la base de datos
-    //     // (Aquí deberías agregar lógica de validación según tus necesidades)
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|email|unique:users,email',
-    //         'password' => 'required|string|min:8',
-    //     ]);
-
-    //     User::create($request->all());
-
-    //     return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
-    // }
     public function store(Request $request)
     {
-        return app(\App\Http\Controllers\Auth\RegisterController::class)->register($request);
+        // Validar y almacenar el nuevo usuario en la base de datos
+        // (Aquí deberías agregar lógica de validación según tus necesidades)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        User::create($request->all());
+
+        return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
     }
+    // public function store(Request $request)
+    // {
+    //     return app(\App\Http\Controllers\Auth\RegisterController::class)->register($request);
+    // }
 
     public function edit(User $user)
     {

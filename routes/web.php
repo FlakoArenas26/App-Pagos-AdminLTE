@@ -45,3 +45,5 @@ Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('pay
 Route::get('/payments/{payment}/edit', [PaymentController::class, 'edit'])->name('payments.edit');
 Route::put('/payments/{payment}', [PaymentController::class, 'update'])->name('payments.update');
 Route::delete('/payments/{payment}', [PaymentController::class, 'destroy'])->name('payments.destroy');
+
+Route::get('/payments/{payment}/download-pdf', [PaymentController::class, 'downloadPDF'])->name('payments.download-pdf');

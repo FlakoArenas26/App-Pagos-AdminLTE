@@ -39,12 +39,12 @@ class Payment extends Model
     }
 
     /**
-     * Relationship with service.
+     * Relationship with services.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function service()
+    public function services()
     {
-        return $this->belongsTo(Services::class);
+        return $this->belongsToMany(Service::class)->withPivot('amount');
     }
 }

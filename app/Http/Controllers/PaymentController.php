@@ -2,70 +2,109 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
+use App\Models\Service;
+use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
     public function index()
     {
-        $users = User::all(); // Asegúrate de obtener la lista de usuarios
-        $services = Services::all(); // Asegúrate de obtener la lista de servicios
-        $payments = Payments::all();
+        $users = User::all(); // Obtener la lista de usuarios
+        $services = Service::all(); // Obtener la lista de servicios
 
-        // Mostrar formulario para crear un nuevo servicio
+        // Obtener los pagos con los usuarios asociados y los servicios con sus montos
+        $payments = Payment::with('user', 'services')->get();
+
+        // Iterate through payments to calculate the total amount for each payment
+        foreach ($payments as $payment) {
+            $totalAmount = 0;
+
+            // Calculate the total amount for services in this payment
+            foreach ($payment->services as $service) {
+                $amount = \DB::table('payment_service')
+                    ->where('payment_id', $payment->id)
+                    ->where('service_id', $service->id)
+                    ->value('amount');
+
+                // Accumulate the amount for each service
+                $totalAmount += $amount;
+            }
+
+            // Assign the total amount to the payment object
+            $payment->total_amount = $totalAmount;
+        }
+
+        // Return the payments with total amounts to the view
         return view('payments.index', compact('users', 'services', 'payments'));
     }
 
     public function create()
     {
         $users = User::all();
-        $services = Services::all();
-        $payments = Payments::all();
+        $services = Service::all();
+        $payments = Payment::all();
 
         return view('payments.create', compact('users', 'services', 'payments'));
     }
+
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'service_id' => 'required|exists:services,id',
-            'amount' => 'required|numeric|min:0',
-            'password' => 'required',
-        ]);
 
-        $user = User::find($request->user_id);
+        try {
 
-        // Validate the user's password
-        if (!Hash::check($request->password, $user->password)) {
-            return redirect()->back()->with('error', '¡Error! La contraseña del usuario es incorrecta. Verifica la contraseña e intenta nuevamente.');
+            // Validación
+            $this->validate($request, [
+                'user_id' => 'required|exists:users,id',
+                'services' => 'required|array',
+                'services.*' => 'exists:services,id',
+                'amount' => 'required|numeric|min:0',
+            ]);
+
+            // Transactions para encapsular operación
+            \DB::beginTransaction();
+
+            // Obtener usuario
+            $user = User::findOrFail($request->user_id);
+
+            // Crear pago
+            $payment = Payment::create([
+                'user_id' => $user->id,
+                'amount' => $request->amount,
+                'date' => now(),
+            ]);
+
+            // Sincronizar servicios
+            $selectedServices = $request->input('services');
+            $payment->services()->sync($selectedServices);
+
+            \DB::commit();
+
+        } catch (\Exception $e) {
+
+            \DB::rollback();
+
+            return back()->withError($e->getMessage());
+
         }
 
-        // Use relationships to create the payment
-        $payment = new Payments([
-            'amount' => $request->amount,
-            'date' => now(), // Adjust this as needed
-        ]);
+        // Redireccionar
+        return redirect()
+            ->route('payments.index')
+            ->with('success', 'Pago exitoso');
 
-        $service = Services::find($request->service_id);
-
-        // Associate relationships
-        $payment->user()->associate($user);
-        $payment->service()->associate($service);
-
-        // Save the payment
-        $payment->save();
-
-        return redirect()->route('payments.index')->with('success', 'Pago realizado exitosamente.');
     }
 
     public function show($id)
     {
-        $payment = Payments::find($id);
+        $payment = Payment::find($id);
 
         return view('payments.show', compact('payment'));
     }
 
-    public function downloadPDF(Payments $payment)
+    public function downloadPDF(Payment $payment)
     {
         // Puedes personalizar esta lógica según la estructura de tu PDF
         $pdf = Pdf::loadView('payments.pdf', compact('payment'));
