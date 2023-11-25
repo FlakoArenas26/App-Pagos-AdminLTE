@@ -16,12 +16,6 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function show(User $user)
-    {
-        // Mostrar el perfil de un usuario
-        return view('users.show', compact('user'));
-    }
-
     public function create()
     {
         // Mostrar formulario para crear un nuevo usuario
@@ -42,10 +36,6 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Usuario creado exitosamente.');
     }
-    // public function store(Request $request)
-    // {
-    //     return app(\App\Http\Controllers\Auth\RegisterController::class)->register($request);
-    // }
 
     public function edit(User $user)
     {

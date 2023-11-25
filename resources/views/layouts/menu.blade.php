@@ -5,7 +5,6 @@
     </a>
 </li>
 <li class="nav-item">
-
     {{-- /* El código `@can('users.index')` es una directiva de Laravel Blade que verifica si el usuario
 actualmente autenticado tiene la capacidad de acceder a la ruta `users.index`. */ --}}
     @can('users.index')
@@ -14,10 +13,8 @@ actualmente autenticado tiene la capacidad de acceder a la ruta `users.index`. *
             <p>Usuarios</p>
         </a>
     @endcan
-
 </li>
 <li class="nav-item">
-
     @can('services.index')
         <a href="{{ route('services.index') }}" class="nav-link">
             <i class="fas fa-file-invoice-dollar"></i>

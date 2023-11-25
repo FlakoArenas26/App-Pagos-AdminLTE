@@ -7,23 +7,11 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    // public function index()
-    // {
-    //     // Mostrar lista de servicios
-    //     $services = Service::all();
-    //     return view('services.index', compact('services'));
-    // }
     public function index()
     {
         // Mostrar lista de usuarios
         $services = Service::all();
         return view('services.index', compact('services'));
-    }
-
-    public function show(Service $service)
-    {
-        // Mostrar detalles de un servicio
-        return view('services.show', compact('service'));
     }
 
     public function create()
